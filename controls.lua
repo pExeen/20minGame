@@ -40,10 +40,6 @@ function love.keypressed(key)
     love.event.quit()
   end
   if key == 'return' then
-     if intro == true then
-         intro = false
-     else
-         intro = true
-     end
+     intro = not intro
   end
 end
