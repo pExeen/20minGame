@@ -1,62 +1,63 @@
-
-
-require 'collision'
-require 'controlls'
+require("collision")
+require("controls")
 function love.load()
-  love.mouse.setVisible(false)
-  rectenglesSize = 120
-  screenW, screenH = love.graphics.getDimensions()
-  screenWMid, screenHMid = screenW/2, screenH/2
-  playerX = screenWMid
-  playerY = 600
-  blockX = screenWMid-2*rectenglesSize
-  blockY = 600
-  randomGoal()
-  score = 0
-end
+	love.window.setFullscreen('true', "desktop")
+	love.mouse.setVisible(false)
+	intro = true
 
-function love.update(dt)
-  collision()
+	width, height = love.graphics.getDimensions()
+	widthMid, heightMid = width/2, height/2
+
+	squareSize = 100
+
+	squares = {player = {score = 0}, movable = {}, target = {}}
+	randomSquares()
 end
 
 function love.draw()
-  love.graphics.setBackgroundColor(0, 150, 0)
-  love.graphics.setColor(150, 0, 0)
-  love.graphics.rectangle('fill', playerX, playerY, rectenglesSize, rectenglesSize)
-  love.graphics.setColor(0, 0, 150)
-  love.graphics.rectangle('fill', blockX, blockY, rectenglesSize , rectenglesSize)
-  love.graphics.setColor(0, 150, 150)
-  love.graphics.rectangle('fill', randomGoalX, randomGoalY, rectenglesSize, rectenglesSize)
-  love.graphics.setNewFont(40)
-  love.graphics.setColor(255, 255, 0)
-  love.graphics.print(score, 0, 0)
-end
-
-function reset()
-  playerX, playerY = screenWMid, 600
-  blockX, blockY = screenWMid-2*rectenglesSize, 600
-  randomGoal()
-end
-
-function boxCollision (box1X,  box1Y, box2X, box2Y)
-  return   ( box1X == box2X and box1Y == box2Y )
-end
-
-function randomGoal()
-  randomGoalX, randomGoalY = makeRandomGoal(rectenglesSize)
-  if boxCollision(randomGoalX, randomGoalY, playerX, playerY) or
-  boxCollision(randomGoalX, randomGoalY, blockX, blockY) then
-    randomGoalX, randomGoalY = makeRandomGoal(rectenglesSize)
-  end
-end
-
-function makeRandomGoal(rectenglesSize)
-  return
-  love.math.random(1, screenW/rectenglesSize-1) * rectenglesSize
-  , love.math.random(1, screenH/rectenglesSize-1) * rectenglesSize
+	if intro == true then
+		love.graphics.setNewFont(40)
+		love.graphics.print("You are the RED square.\nYour mission is to put the GREEN square in the BLUE one.\nThe only rules are to stay on the screen and to stay away from the BLUE square.")
+	else
+		love.graphics.setColor(255, 255, 255)
+		love.graphics.print("Score: "..squares.player.score)
+		love.graphics.setBackgroundColor(30, 0, 5)
+		love.graphics.setColor(0, 0, 0)
+		love.graphics.rectangle('fill', squareSize, squareSize, width - 2 * squareSize, height - 2 * squareSize)
+		love.graphics.setColor(150, 0, 0)
+		love.graphics.rectangle("fill", squares.player.x, squares.player.y, squareSize, squareSize)
+		love.graphics.setColor(0, 150, 0)
+		love.graphics.rectangle("fill", squares.movable.x, squares.movable.y, squareSize, squareSize)
+		love.graphics.setColor(0, 0, 150)
+		love.graphics.rectangle("fill", squares.target.x, squares.target.y, squareSize, squareSize)
+	end
 end
 
 function win()
-  score = score + 1
-  reset()
+	squares.player.score = squares.player.score + 1
+	randomSquares()
+end
+
+function lose()
+	squares.player.score = squares.player.score - 1
+	randomSquares()
+end
+
+function randomCoordinates()
+	x, y = math.random((width - squareSize*3) / squareSize + 1 ) * squareSize, math.random((height - squareSize*3) / squareSize + 1) * squareSize
+	return x, y
+end
+
+function randomSquares()
+	squares.player.x, squares.player.y = randomCoordinates()
+	squares.movable.x, squares.movable.y = randomCoordinates()
+	squares.target.x, squares.target.y = randomCoordinates()
+
+	while squares.movable.x == squares.player.x or squares.movable.y == squares.player.y do
+		squares.movable.x, squares.movable.y = randomCoordinates()
+	end
+
+	while squares.movable.x == squares.target.x or squares.movable.y == squares.target.y or squares.target.x == squares.player.x or squares.target.y == squares.player.y do
+		squares.target.x, squares.target.y = randomCoordinates()
+	end
 end
