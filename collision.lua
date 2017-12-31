@@ -4,6 +4,5 @@ function collision()
 	end
 	if squares.movable.x == squares.target.x and squares.movable.y == squares.target.y then
 		win()
-	end	
+	end
 end
-
