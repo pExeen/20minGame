@@ -1,37 +1,37 @@
 function love.keypressed(key)
-        if key == 'escape' then
+        if key == "escape" then
                 love.event.quit()
         end
-        if key == 'left' then
+        if key == "left" then
                 squares.player.x = squares.player.x - squareSize
-                movablePlayerCollision('x', -squareSize)
+                movablePlayerCollision("x", -squareSize)
                 collision()
         end
 
-        if key == 'right' then
+        if key == "right" then
                 squares.player.x = squares.player.x + squareSize
-                movablePlayerCollision('x', squareSize)
+                movablePlayerCollision("x", squareSize)
                 collision()
         end
 
-        if key == 'up' then
+        if key == "up" then
                 squares.player.y = squares.player.y - squareSize
-                movablePlayerCollision('y', -squareSize)
+                movablePlayerCollision("y", -squareSize)
                 collision()
         end
 
-        if key == 'down' then
+        if key == "down" then
                 squares.player.y = squares.player.y + squareSize
-                movablePlayerCollision('y', squareSize)
+                movablePlayerCollision("y", squareSize)
                 collision()
         end
-        if key == 'r' then
+        if key == "r" then
                 randomSquares()
         end
-        if key == 'escape' then
+        if key == "escape" then
                 love.event.quit()
         end
-        if key == 'return' then
+        if key == "return" then
                 introState = not introState
         end
 end

@@ -1,7 +1,8 @@
 require("collision")
 require("controls")
+
 function love.load()
-	love.window.setFullscreen('true', "desktop")
+	love.window.setFullscreen("true", "desktop")
 	love.mouse.setVisible(false)
 	introState = true
 
@@ -22,7 +23,7 @@ function love.draw()
 		love.graphics.print("Score: "..squares.player.score)
 		love.graphics.setBackgroundColor(30, 0, 5)
 		love.graphics.setColor(0, 0, 0)
-		love.graphics.rectangle('fill', squareSize, squareSize, width - 2 * squareSize, height - 2 * squareSize)
+		love.graphics.rectangle("fill", squareSize, squareSize, width - 2 * squareSize, height - 2 * squareSize)
 
 		love.graphics.setColor(squares.player.colors.r, squares.player.colors.g, squares.player.colors.b)
 		love.graphics.rectangle("fill", squares.player.x, squares.player.y, squareSize, squareSize)
