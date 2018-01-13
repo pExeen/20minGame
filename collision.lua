@@ -16,9 +16,3 @@ function collision(direction)
 		win()
 	end
 end
-
-function movablePlayerCollision(coordinates, change)
-	if squares.player.x == squares.movable.x and squares.movable.y == squares.player.y then
-		load("squares.movable."..coordinates.." = squares.movable."..coordinates.." + "..change)()
-	end
-end
