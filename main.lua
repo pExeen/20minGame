@@ -24,7 +24,10 @@ end
 function love.draw()
 	if introState == true then
 		love.graphics.setNewFont(40)
-		love.graphics.print("You are the BLUE square.\nYour mission is to push the RED square to the GREEN one.\nThe only rules are to stay on the screen\nand to stay away from the GREEN square.")
+		love.graphics.print("You are the BLUE square.\n
+			Your mission is to push the RED square to the GREEN one.\n
+			The only rules are to stay on the screen\n
+			and to stay away from the GREEN square.")
 	else
 		love.graphics.print("Score: "..score)
 		love.graphics.setBackgroundColor(15, 15, 15)
